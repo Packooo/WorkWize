@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 11, 2024 at 10:45 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Waktu pembuatan: 04 Jul 2025 pada 19.52
+-- Versi server: 10.4.32-MariaDB
+-- Versi PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,11 +20,13 @@ SET time_zone = "+00:00";
 --
 -- Database: `workwise`
 --
+CREATE DATABASE IF NOT EXISTS `workwise` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `workwise`;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `apply_job`
+-- Struktur dari tabel `apply_job`
 --
 
 CREATE TABLE `apply_job` (
@@ -40,7 +42,7 @@ CREATE TABLE `apply_job` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `apply_job`
+-- Dumping data untuk tabel `apply_job`
 --
 
 INSERT INTO `apply_job` (`id`, `userid`, `jobid`, `full_name`, `email`, `phone`, `resume`, `cover_letter`, `applied_at`) VALUES
@@ -50,7 +52,7 @@ INSERT INTO `apply_job` (`id`, `userid`, `jobid`, `full_name`, `email`, `phone`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bmjob`
+-- Struktur dari tabel `bmjob`
 --
 
 CREATE TABLE `bmjob` (
@@ -60,7 +62,7 @@ CREATE TABLE `bmjob` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `bmjob`
+-- Dumping data untuk tabel `bmjob`
 --
 
 INSERT INTO `bmjob` (`id`, `userId`, `jobId`) VALUES
@@ -73,7 +75,7 @@ INSERT INTO `bmjob` (`id`, `userId`, `jobId`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jobtable`
+-- Struktur dari tabel `jobtable`
 --
 
 CREATE TABLE `jobtable` (
@@ -92,7 +94,7 @@ CREATE TABLE `jobtable` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `jobtable`
+-- Dumping data untuk tabel `jobtable`
 --
 
 INSERT INTO `jobtable` (`jobId`, `userId`, `category`, `title`, `jobType`, `company`, `location`, `price`, `exitDay`, `responsibilities`, `requirements`, `payment`) VALUES
@@ -112,7 +114,7 @@ INSERT INTO `jobtable` (`jobId`, `userId`, `category`, `title`, `jobType`, `comp
 -- --------------------------------------------------------
 
 --
--- Table structure for table `unapproved_job`
+-- Struktur dari tabel `unapproved_job`
 --
 
 CREATE TABLE `unapproved_job` (
@@ -133,7 +135,7 @@ CREATE TABLE `unapproved_job` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
@@ -150,67 +152,66 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
 INSERT INTO `users` (`userid`, `fName`, `lName`, `email`, `password`, `question`, `answer`, `favourite_field`, `role`, `image`) VALUES
-(0, 'Admin', 'Mikel', 'mikellubis@gmail.com', '$2y$10$AazU4Nkd5DIaPTARx/Jy3OPE/V4qNqmbOSObdxjz7xIYqPQBuOhxa', 'What is your favourite color', '$2y$10$ZhK39XA3BqBgrg8hmCaCmu7TxRSWl3CAm5TBmdGyczPQhi84BZ31W', '', 'admin', 'user.jpg'),
-(0, 'Wijayanto A', 'Wibowo', 'wijayantoaw1@gmail.com', '$2y$10$PLDff3TqGIXEt/cxFuWmQ.xlV3XxTm4.gLuYsf7IhV0Itp5tWbBq6', 'What is your favourite color', '$2y$10$Psb7no0tUD0TKhPVKpi4VuZv4QMlvFm9EokXV4S8EO8AZ/gli4RSq', '', 'user', 'user.jpg'),
-(0, 'Nurhasan', 'Hasan', 'enhas03@gmail.com', '$2y$10$HEguf7YRefk9.10m8YOwGuU17NVs8JcdbITeMpc0QkBqzvQezs2ka', 'What is your favourite color', 'blue', '', 'user', 'user.jpg'),
-(0, 'Mikel', 'lubis', 'Hasan@gmail.com', '$2y$10$M832haGPaIr4h39qTAQeNOFv2obZhlHfcJRn5BWZRUxXn2xtFnanO', 'What is your favourite color', 'blue', '', 'user', 'user.jpg');
+(0, 'Wijayanto A', 'Wibowo', 'wijayanto@gmail.com', '$2y$10$3ljtz8sPEQ7o4hohIXqJouHY4exnM1FxsZ.Ayn6lKJ7n/smshO9HO', 'What is your favourite color', 'hijau', '', 'admin', 'user.jpg'),
+(0, 'user', '1', 'user1@gmail.com', '$2y$10$FmgmCQES5.SL74rgR5AGiOi5iEB4k8j1b0K4iulRVOjlKUXMSbyp6', 'What is your favourite color', 'hijau', '', 'user', 'user.jpg'),
+(0, 'Wijayanto A', 'Wibowo', 'wijayantoaw1@gmail.com', '$2y$10$35DGsR46QGwBWGfB2MvlNOjPK4QsMgrsRBcnMd9Wr47FFIGQ8tvjq', 'What is your favourite color', 'hijau', '', 'admin', 'user.jpg');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `apply_job`
+-- Indeks untuk tabel `apply_job`
 --
 ALTER TABLE `apply_job`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `bmjob`
+-- Indeks untuk tabel `bmjob`
 --
 ALTER TABLE `bmjob`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `jobtable`
+-- Indeks untuk tabel `jobtable`
 --
 ALTER TABLE `jobtable`
   ADD PRIMARY KEY (`jobId`);
 
 --
--- Indexes for table `unapproved_job`
+-- Indeks untuk tabel `unapproved_job`
 --
 ALTER TABLE `unapproved_job`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `apply_job`
+-- AUTO_INCREMENT untuk tabel `apply_job`
 --
 ALTER TABLE `apply_job`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `bmjob`
+-- AUTO_INCREMENT untuk tabel `bmjob`
 --
 ALTER TABLE `bmjob`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
--- AUTO_INCREMENT for table `jobtable`
+-- AUTO_INCREMENT untuk tabel `jobtable`
 --
 ALTER TABLE `jobtable`
   MODIFY `jobId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
--- AUTO_INCREMENT for table `unapproved_job`
+-- AUTO_INCREMENT untuk tabel `unapproved_job`
 --
 ALTER TABLE `unapproved_job`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
