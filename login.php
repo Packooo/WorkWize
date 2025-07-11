@@ -78,7 +78,7 @@ mysqli_close($conn);
                 <label for="password" style="text-align: left;">Password</label>
                 <input type="password" id="password" name="password" placeholder="Masukkan password" required>
             </div>
-            <h5 id="fp"><a href="froget_password.php">Lupa Password ?</a>
+            <h5 id="fp"><a href="forget_password.php">Lupa Password ?</a>
             </h5>
             <div class="form-group" id="loginbtn">
                 <button type="submit" name="submit">Login</button>

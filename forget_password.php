@@ -19,7 +19,7 @@ if(isset($_POST['change'])){
     
         echo '<script> alert("Password Changed Successfully");window.location.href="login.php";</script>';
     } else {
-        echo '<script> alert("Passwords do not match");window.location.href="froget_password.php";</script>';
+        echo '<script> alert("Passwords do not match");window.location.href="forget_password.php";</script>';
         
     }
 }
@@ -36,15 +36,15 @@ if (isset($_POST['submit'])) {
     if ($result->num_rows > 0) {
         $row = mysqli_fetch_assoc($result);
         if ($row['question'] == $qusation) {
-            if (password_verify($answer, $row["answer"])) {
+            if ($answer== $row["answer"]) {
                 $none1='none';
                 $none2='block';
 
             } else {
-                echo '<script> alert("Invalid answer.");window.location.href="froget_password.php";</script>';
+                echo '<script> alert("Invalid answer.");window.location.href="forget_password.php";</script>';
             }
         } else {
-            echo '<script> alert("Invalid qustion.");window.location.href="froget_password.php";</script>';
+            echo '<script> alert("Invalid question.");window.location.href="forget_password.php";</script>';
         }
     } else {
         $conn->close();
@@ -91,7 +91,7 @@ if (isset($_POST['submit'])) {
         <br><br>
         <h2>Ganti Password Anda</h2><br>
         <label for=""></label>
-        <form class="loginform" action="froget_password.php" method="post">
+        <form class="loginform" action="forget_password.php" method="post">
             <div class="form-group">
                 <label for="email" style="text-align: left;">Email </label>
                 <input type="email" id="email" name="email" placeholder="Enter your Email" required>
@@ -100,7 +100,6 @@ if (isset($_POST['submit'])) {
                 <label for="password" style="text-align: left;">Pilih pertanyaan</label>
                 <select name="qusation" required>
                     <option value="What is your favourite color">Apa warna favorit?</option>
-                    <option value="What is your favourite color">What is your favourite color</option>
                 </select>
                 <input type="text" id="text" name="answer" placeholder="Enter your answer" required>
             </div>
@@ -124,7 +123,7 @@ if (isset($_POST['submit'])) {
         <br><br>
         <h2>Update your password</h2><br>
         <label for=""></label>
-        <form class="loginform" action="froget_password.php" method="post">
+        <form class="loginform" action="forget_password.php" method="post">
             <div class="form-group">
                 <label for="password" style="text-align: left;">Enter your new Password </label>
                 <input type="password" id="password" name="password" pattern=".{8,}" title="Password must be at least 8 characters" required placeholder="Enter New Password (at least 10 characters)">
