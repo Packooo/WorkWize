@@ -26,7 +26,7 @@ if(isset($_POST['change'])){
 
 if (isset($_POST['submit'])) {
     $email = $_POST['email'];
-    $qusation = $_POST['qusation'];
+    $question = $_POST['question'];
     $answer = $_POST['answer'];
     $sql = "SELECT * FROM users WHERE email =?";
     $stmt = $conn->prepare($sql);
@@ -35,8 +35,8 @@ if (isset($_POST['submit'])) {
     $result = mysqli_stmt_get_result($stmt);
     if ($result->num_rows > 0) {
         $row = mysqli_fetch_assoc($result);
-        if ($row['question'] == $qusation) {
-            if ($answer== $row["answer"]) {
+        if ($row['question'] == $question) {
+            if (password_verify($answer, $row["answer"])) {
                 $none1='none';
                 $none2='block';
 
@@ -98,8 +98,9 @@ if (isset($_POST['submit'])) {
             </div>
             <div class="form-group">
                 <label for="password" style="text-align: left;">Pilih pertanyaan</label>
-                <select name="qusation" required>
-                    <option value="What is your favourite color">Apa warna favorit?</option>
+                <select name="question" required>
+                    <option value="What is your favourite color?">Apa warna favorit?</option>
+                    <option value="What is your age?">Berapa umur anda?</option>
                 </select>
                 <input type="text" id="text" name="answer" placeholder="Enter your answer" required>
             </div>
