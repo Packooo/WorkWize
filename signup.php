@@ -1,50 +1,9 @@
-<?php include("conn.php") ?>
-<?php if(session_start()) {
-    session_destroy();
-} ?>
 <?php
-if (isset($_POST["submit"])) {
-    require_once "conn.php"; // Include your database connection file
-
-    $fName = $_POST["fName"];
-    $lName = $_POST["lName"];
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-    $cpassword = $_POST["cpassword"];
-    $qusation = $_POST["qusation"];
-    $answer = $_POST["answer"];
-
-    if (empty($fName) || empty($lName) || empty($email) || empty($password) || empty($cpassword) || empty($answer)) {
-        echo '<script> alert("Enter all required data.")</script>';
-    } else {
-        // Check if the email already exists
-        $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
-        $stmt->bind_param("s", $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        if ($result->num_rows > 0) {
-            echo '<script> alert("The email already exists.")</script>';
-        } else {
-            if ($password == $cpassword) {
-                $hashpassword = password_hash($password, PASSWORD_DEFAULT);
-                // Don't hash the answer if it's case-sensitive or requires specific formatting
-                // $hashanswer = password_hash($answer, PASSWORD_DEFAULT);
-
-                $stmt = $conn->prepare("INSERT INTO users (fName, lName, email, password, question, answer) VALUES (?, ?, ?, ?, ?, ?)");
-                $stmt->bind_param("ssssss", $fName, $lName, $email, $hashpassword, $qusation, $answer);
-                if ($stmt->execute()) {
-                    echo '<script> alert("Registered successfully"); window.location.href="login.php"; </script>';
-                } else {
-                    echo '<script> alert("Registration failed. Please try again later.")</script>';
-                }
-                $stmt->close();
-            } else {
-                echo '<script> alert("Passwords do not match.")</script>';
-            }
-        }
-    }
-    $conn->close();
-}
+session_start();
+$errors = isset($_SESSION['errors']) ? $_SESSION['errors'] : [];
+$form_data = isset($_SESSION['form_data']) ? $_SESSION['form_data'] : [];
+unset($_SESSION['errors']);
+unset($_SESSION['form_data']);
 ?>
 
 
@@ -63,7 +22,7 @@ if (isset($_POST["submit"])) {
 
 <body>
 
-    <form action="signup.php" method="post">
+    <form action="signup_process.php" method="post">
         <div class="form">
             <a href="index.php"> <img src="./Image/logo/logo1.png" alt="logo" class="logo"></a>
             <a href="index.php"><img src="./Image/logo/X.png" alt="x"
@@ -71,24 +30,49 @@ if (isset($_POST["submit"])) {
 
             <br><br><br>
             <h2>Sign up to find work you love </h2>
+            <?php if (isset($errors['general'])): ?>
+                <p class="error"><?php echo $errors['general']; ?></p>
+            <?php endif; ?>
             <br>
-            <input type="text" id="firstName" name="fName" placeholder=" Nama Depan" required>
+            <input type="text" id="firstName" name="fName" placeholder=" Nama Depan" value="<?php echo htmlspecialchars($form_data['fName'] ?? ''); ?>" required>
+            <?php if (isset($errors['fName'])): ?>
+                <p class="error"><?php echo $errors['fName']; ?></p>
+            <?php endif; ?>
 
-            <input type="text" id="lastName" name="lName" placeholder="Nama Belakang" required>
+            <input type="text" id="lastName" name="lName" placeholder="Nama Belakang" value="<?php echo htmlspecialchars($form_data['lName'] ?? ''); ?>" required>
+            <?php if (isset($errors['lName'])): ?>
+                <p class="error"><?php echo $errors['lName']; ?></p>
+            <?php endif; ?>
             <br>
-            <input type="email" id="email" name="email" placeholder="Masukkan Email" required>
+            <input type="email" id="email" name="email" placeholder="Masukkan Email" value="<?php echo htmlspecialchars($form_data['email'] ?? ''); ?>" required>
+            <?php if (isset($errors['email'])): ?>
+                <p class="error"><?php echo $errors['email']; ?></p>
+            <?php endif; ?>
             <br>
-            <input type="password" id="password" name="password" pattern=".{8,}" title="Password must be at least 8 characters" required placeholder="Masukkan Password (Minimal 10 karakter)">
+            <input type="password" id="password" name="password" pattern=".{8,}" title="Password must be at least 8 characters" required placeholder="Masukkan Password (Minimal 8 karakter)">
+            <?php if (isset($errors['password'])): ?>
+                <p class="error"><?php echo $errors['password']; ?></p>
+            <?php endif; ?>
             <br>
             <input type="password" id="confirmpassword" name="cpassword" placeholder="Konfirmasi password" required>
+            <?php if (isset($errors['cpassword'])): ?>
+                <p class="error"><?php echo $errors['cpassword']; ?></p>
+            <?php endif; ?>
             <br>
-            <select name="qusation">
-                <option value="What is your favourite color">Apa Warna Favorit</option>
-                <option value="What is your favourite color">Berapa Umur Anda</option>
+            <select name="question" required>
+                <option value="" disabled selected>Select a security question</option>
+                <option value="What is your favourite color?" <?php echo (isset($form_data['question']) && $form_data['question'] == 'What is your favourite color?') ? 'selected' : ''; ?>>Apa Warna Favorit</option>
+                <option value="What is your age?" <?php echo (isset($form_data['question']) && $form_data['question'] == 'What is your age?') ? 'selected' : ''; ?>>Berapa Umur Anda</option>
             </select>
-            <input type="text" name="answer" placeholder="Masukkan Jawaban" required>
+            <?php if (isset($errors['question'])): ?>
+                <p class="error"><?php echo $errors['question']; ?></p>
+            <?php endif; ?>
+            <input type="text" name="answer" placeholder="Masukkan Jawaban" value="<?php echo htmlspecialchars($form_data['answer'] ?? ''); ?>" required>
+            <?php if (isset($errors['answer'])): ?>
+                <p class="error"><?php echo $errors['answer']; ?></p>
+            <?php endif; ?>
             <label>Jika Anda lupa kata sandi, Anda perlu <span style="font-style:italic; color:red;">Mengingat</span>
-                Jawaban Ini <br> 
+                Jawaban Ini <br>
                 Untuk memulihkan akun anda</label>
 
             <center>
@@ -105,4 +89,3 @@ if (isset($_POST["submit"])) {
 </body>
 
 </html>
-<?php $conn->close(); ?>
