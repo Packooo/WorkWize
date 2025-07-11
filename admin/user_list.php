@@ -60,10 +60,10 @@
 
                         </td>
                         <td id="btntd">
-                            <form action="renter_password.php" method="GET">
+                            <form method="GET">
                                 <input type="hidden" name="id" value="<?php echo $row['userid']; ?>">
-                                <button type="submit" name="edit" value="edit">Edit</button>
-                                <button id="delbtn" type="submit" name="delete" value="delete">Hapus</button>
+                                <button type="submit" name="edit" value="edit" formaction="edit_user.php">Edit</button>
+                                <button id="delbtn" type="submit" name="delete" value="delete" formaction="renter_password.php" onclick="return confirm('Are you sure you want to delete this user?');">Hapus</button>
                             </form>
                         </td>
                     </tr>
