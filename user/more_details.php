@@ -81,7 +81,7 @@ if (isset($_GET["apply"])) {
     <div class="job_listings">
         <div class="job_row">
             <div class="job">
-                <a id="back" href="http:user.php" style="float: inline-start;"><i class="fa fa-chevron-left" style="font-size:20px ; "></i></a>
+                <a id="back" href="javascript:history.back()" style="float: inline-start;"><i class="fa fa-chevron-left" style="font-size:20px ; "></i></a>
                 <form action="more_details.php" method="get">
                     <button id="bookmark" type="submit" name="bookmark"><i class="fa fa-bookmark"
                             style="color: <?php echo $buttonColor; ?>;"></i></button>

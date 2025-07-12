@@ -11,7 +11,7 @@ if (!isset($_SESSION['id'])) {
     if ($_POST['submit'] == 'Add Job') {
         $userid = $_SESSION['id'];
         $title = $_POST['job_title'];
-        $jobType = $_POST['job_type'];
+        $job_type = $_POST['job_type'];
         $company = $_POST['company'];
         $location = $_POST['location'];
         $price = $_POST['price'];
@@ -21,17 +21,17 @@ if (!isset($_SESSION['id'])) {
         $payment = $_POST['payment'];
         $ctg=$_POST['ctg'];
         
-        $sql = "INSERT INTO unapproved_job (userid,category,title, job_type, company, location, price, exit_day,responsibilities,requirement,payment) VALUES ('$userid','$ctg','$title', '$jobType', '$company', '$location', '$price', '$exitDay','$responsibilities','$requirement','$payment')";
+        $sql = "INSERT INTO unapproved_job (userid, category, title, job_type, company, location, price, exit_day, responsibilities, requirement, payment) VALUES ('$userid', '$ctg', '$title', '$job_type', '$company', '$location', '$price', '$exitDay', '$responsibilities', '$requirement', '$payment')";
         $result = mysqli_query($conn, $sql);
         if ($result) {
-            echo '<script> alert("Job added successfully");window.location.href="find_freelancers.php"; </script>';
+            echo '<script> alert("Job added successfully");window.location.href="home.php"; </script>';
 
 
         } else {
-            echo '<script> alert("Job not added.");window.location.href="find_freelancers.php";</script>';
+            echo '<script> alert("Job not added. Error: ' . mysqli_error($conn) . '");window.location.href="home.php";</script>';
         }
     } else {
-        header('location:find_freelancers.php');
+        header('location:home.php');
     }
 }
 ?>
@@ -53,7 +53,7 @@ if (!isset($_SESSION['id'])) {
 <body>
     <form action="add_job.php" method="post">
         <div id="addjob_form" class="form hidden">
-            <a href="find_freelancers.php" id="remove"><i class="fa fa-remove"></i></a>
+            <a href="javascript:history.back()" id="remove"><i class="fa fa-remove"></i></a>
             <a></a>
             <h1>Tambahkan Pekerjaan</h1>
 
@@ -95,16 +95,15 @@ if (!isset($_SESSION['id'])) {
             <label for="requirements">Requirements:</label>
             <textarea name="requirements" rows="4" required></textarea><br>
 
-            <!-- <label for="exit_day">Exit Day:</label>
-            <input type="date" name="exit_day" required><br> -->
+            <input type="hidden" name="exit_day" id="exit_day">
 
             <br>
-            <a href="user.php"><input id="cancel" type="button" value="Back"></a>
+            <a href="javascript:history.back()"><input id="cancel" type="button" value="Back"></a>
             <input id="add" type="button" onclick="showElement('payment_form', 'addjob_form')" value="Next">
         </div>
 
         <div id="payment_form" class="form hidden">
-            <a href="user.php" id="remove"><i class="fa fa-remove"></i></a>
+            <a href="javascript:history.back()" id="remove"><i class="fa fa-remove"></i></a>
             <h1>Rincian Pembayaran</h1>
             <select name="payment" style="font-weight: 700;">
                 <option value="10">Rp. 500.000 - Perminggu  </option>
@@ -141,6 +140,16 @@ if (!isset($_SESSION['id'])) {
 
             showForm.style.display = 'block';
             hideForm.style.display = 'none';
+
+            if (showFormId === 'payment_form') {
+                const paymentDays = document.querySelector('[name=payment]').value;
+                const exitDate = new Date();
+                exitDate.setDate(exitDate.getDate() + parseInt(paymentDays));
+                const year = exitDate.getFullYear();
+                const month = String(exitDate.getMonth() + 1).padStart(2, '0');
+                const day = String(exitDate.getDate()).padStart(2, '0');
+                document.getElementById('exit_day').value = `${year}-${month}-${day}`;
+            }
         }
     </script>
 
