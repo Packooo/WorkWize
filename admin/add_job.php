@@ -13,8 +13,9 @@
         $responsibilities = $_POST['responsibilities'];
         $requirement = $_POST['requirements'];
         $ctg = $_POST['ctg'];
+        $payment = 0;
 
-        $sql = "INSERT INTO unapproved_job (userid,category,title, job_type, company, location, price, exit_day,responsibilities,requirement,payment) VALUES ('$userid','$ctg','$title', '$jobType', '$company', '$location', '$price', '$exitDay','$responsibilities','$requirement','$payment')";
+        $sql = "INSERT INTO unapproved_job (userid,category,title, job_type, company, location, price, responsibilities,requirement,payment) VALUES ('$userid','$ctg','$title', '$jobType', '$company', '$location', '$price', '$responsibilities','$requirement','$payment')";
         $result = mysqli_query($conn, $sql);
         if ($result) {
            

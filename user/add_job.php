@@ -106,9 +106,9 @@ if (!isset($_SESSION['id'])) {
             <a href="javascript:history.back()" id="remove"><i class="fa fa-remove"></i></a>
             <h1>Rincian Pembayaran</h1>
             <select name="payment" style="font-weight: 700;">
-                <option value="10">Rp. 500.000 - Perminggu  </option>
-                <option value="20">Rp. 1.000.000 - Dua Minggu  </option>
-                <option value="30">Rp. 2.500.000 - Per Bulan  </option>
+                <option value="20000">Rp. 20000 - Perminggu Penayangan  </option>
+                <option value="35000">Rp. 35000 - Dua Minggu Penayangan  </option>
+                <option value="50000">Rp. 50000 - Per Bulan Penayangan </option>
 
             </select>
 
