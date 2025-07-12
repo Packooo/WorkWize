@@ -10,23 +10,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout kode dari GitHub
-      uses: actions/checkout@v3
+      - name: Checkout kode dari GitHub
+        uses: actions/checkout@v3
 
-    - name: Upload semua file ke VPS
-      uses: appleboy/scp-action@master
-      with:
-        host: ${{ secrets.SERVER_IP }}
-        username: ${{ secrets.SSH_USER }}
-        password: ${{ secrets.SSH_PASS }}
-        source: "."
-        target: "/var/www/html/workwize"
+      - name: Upload semua file ke VPS tanpa compress
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          password: ${{ secrets.VPS_PASS }}
+          source: "./"
+          target: "/var/www/html/workwize"
+          strip_components: 0
+          rm: false
+          tar_tmp_path: ""
+          overwrite: true
 
-    - name: Import database workwise.sql ke MySQL VPS
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SERVER_IP }}
-        username: ${{ secrets.SSH_USER }}
-        password: ${{ secrets.SSH_PASS }}
-        script: |
-          mysql -u root workwise < /var/www/html/workwize/database/workwise.sql
+      - name: Import database workwise.sql ke MySQL VPS
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          password: ${{ secrets.VPS_PASS }}
+          script: |
+            mysql -u root workwise < /var/www/html/workwize/database/workwise.sql
