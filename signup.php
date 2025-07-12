@@ -59,6 +59,19 @@ unset($_SESSION['form_data']);
                 <p class="error"><?php echo $errors['cpassword']; ?></p>
             <?php endif; ?>
             <br>
+<select name="favourite_field" required>
+                <option value="" disabled selected>Select your favourite field</option>
+                <option value="Web Development" <?php echo (isset($form_data['favourite_field']) && $form_data['favourite_field'] == 'Web Development') ? 'selected' : ''; ?>>Web Development</option>
+                <option value="Mobile Development" <?php echo (isset($form_data['favourite_field']) && $form_data['favourite_field'] == 'Mobile Development') ? 'selected' : ''; ?>>Mobile Development</option>
+                <option value="Data Science" <?php echo (isset($form_data['favourite_field']) && $form_data['favourite_field'] == 'Data Science') ? 'selected' : ''; ?>>Data Science</option>
+                <option value="Artificial Intelligence" <?php echo (isset($form_data['favourite_field']) && $form_data['favourite_field'] == 'Artificial Intelligence') ? 'selected' : ''; ?>>Artificial Intelligence</option>
+                <option value="Cyber Security" <?php echo (isset($form_data['favourite_field']) && $form_data['favourite_field'] == 'Cyber Security') ? 'selected' : ''; ?>>Cyber Security</option>
+                <option value="UI/UX Design" <?php echo (isset($form_data['favourite_field']) && $form_data['favourite_field'] == 'UI/UX Design') ? 'selected' : ''; ?>>UI/UX Design</option>
+            </select>
+            <?php if (isset($errors['favourite_field'])): ?>
+                <p class="error"><?php echo $errors['favourite_field']; ?></p>
+            <?php endif; ?>
+            <br>
             <select name="question" required>
                 <option value="" disabled selected>Select a security question</option>
                 <option value="What is your favourite color?" <?php echo (isset($form_data['question']) && $form_data['question'] == 'What is your favourite color?') ? 'selected' : ''; ?>>Apa Warna Favorit</option>
