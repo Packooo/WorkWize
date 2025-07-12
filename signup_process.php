@@ -12,7 +12,6 @@ if (isset($_POST["submit"])) {
     $cpassword = $_POST["cpassword"];
     $question = $_POST["question"];
     $answer = $_POST["answer"];
-    $favourite_field = $_POST["favourite_field"];
 
     $errors = [];
 
@@ -44,9 +43,6 @@ if (isset($_POST["submit"])) {
     if (empty($answer)) {
         $errors['answer'] = "Answer is required.";
     }
-    if (empty($favourite_field)) {
-        $errors['favourite_field'] = "Favourite field is required.";
-    }
 
     if (empty($errors)) {
         $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
@@ -60,8 +56,8 @@ if (isset($_POST["submit"])) {
             $hashpassword = password_hash($password, PASSWORD_DEFAULT);
             $hashanswer = password_hash($answer, PASSWORD_DEFAULT);
 
-            $stmt = $conn->prepare("INSERT INTO users (fName, lName, email, password, question, answer, favourite_field) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("sssssss", $fName, $lName, $email, $hashpassword, $question, $hashanswer, $favourite_field);
+            $stmt = $conn->prepare("INSERT INTO users (fName, lName, email, password, question, answer) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("ssssss", $fName, $lName, $email, $hashpassword, $question, $hashanswer);
 
             if ($stmt->execute()) {
                 $_SESSION['success_message'] = "Registered successfully. Please login.";
