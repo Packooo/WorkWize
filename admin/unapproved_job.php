@@ -1,5 +1,9 @@
 <?php include("../conn.php");
 session_start();
+if (!isset($_SESSION['id'])) {
+    header('Location: ../login.php');
+    exit();
+}
 ?>
 <?php $active4 = "active"; ?>
 <?php
@@ -26,9 +30,10 @@ if (isset($_GET['remove']) || isset(  $_GET['add'])) {
         $exitDay = $row_getdata['exit_day'];
         $responsibilities = $row_getdata['responsibilities'];
         $requirements = $row_getdata['requirement'];
+        $payment = $row_getdata['payment'];
 
-        $sql_setdata = "INSERT INTO `jobtable` (`userId`,`category`, `title`, `jobType`, `company`, `location`, `price`, `exitDay`, `responsibilities`, `requirements`)
-                       VALUES ('$userId','$ctg', '$title', '$jobType', '$company', '$location', '$price', '$exitDay', '$responsibilities', '$requirements')";
+        $sql_setdata = "INSERT INTO `jobtable` (`userId`,`category`, `title`, `jobType`, `company`, `location`, `price`, `exitDay`, `responsibilities`, `requirements`, `payment`)
+                       VALUES ('$userId','$ctg', '$title', '$jobType', '$company', '$location', '$price', '$exitDay', '$responsibilities', '$requirements', '$payment')";
         mysqli_query($conn, $sql_setdata);
         $sql = "DELETE FROM unapproved_job WHERE `unapproved_job`.`id` = $id";
         $result = mysqli_query($conn, $sql);
