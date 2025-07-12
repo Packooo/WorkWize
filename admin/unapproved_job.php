@@ -32,7 +32,6 @@ if (isset($_GET['remove']) || isset(  $_GET['add'])) {
         mysqli_query($conn, $sql_setdata);
         $sql = "DELETE FROM unapproved_job WHERE `unapproved_job`.`id` = $id";
         $result = mysqli_query($conn, $sql);
-        $conn->close();
         if ($result) {
             echo '<script> alert("Job approved successful.");</script>';
             header('location:unapproved_job.php');
