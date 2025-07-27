@@ -112,12 +112,12 @@ Database `workwise` terdiri dari 5 tabel utama:
 ## 👤 Akun Default
 
 ### Admin
-- **Email**: wijayanto@gmail.com
-- **Password**: [sesuai hash di database]
+- **Email**: wijayantoaw1@gmail.com
+- **Password**: Shinkasen123
 
 ### User Test
 - **Email**: user1@gmail.com
-- **Password**: [sesuai hash di database]
+- **Password**: Shinkasen123
 
 ## 🎯 Kategori Pekerjaan
 
